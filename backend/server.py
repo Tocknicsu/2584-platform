@@ -5,18 +5,20 @@ import config
 import tornado.ioloop
 import tornado.tcpserver
 import tornado.web
+import threading
 
 socket_pool = {}
 job_pool = {}
+job_pool_lock = threading.Lock()
 job_counter = 0
-lock = 1
+job_counter_lock = threading.Lock()
 
 
 class ApiHandler(tornado.web.RequestHandler):
 
     @tornado.gen.coroutine
     def post(self):
-        global lock
+        global job_counter_lock
         global socket_pool
         global job_pool
         global job_counter
@@ -24,14 +26,13 @@ class ApiHandler(tornado.web.RequestHandler):
         if data['studentId'] not in socket_pool:
             self.write('FAIL')
             return
-        while lock == 0:
-            continue
-        lock -= 1
+        job_counter_lock.acquire()
         now_job_counter = job_counter
         job_counter += 1
-        lock += 1
+        job_counter_lock.release()
+
         if data['aiType'] == 'solver':
-            data['aiType'] = 'player'
+            data['aiType'] = 'play'
         elif data['aiType'] == 'evil':
             data['aiType'] = 'evil'
         socket_pool[data['studentId']].send_message(
@@ -43,10 +44,14 @@ class ApiHandler(tornado.web.RequestHandler):
         )
         times = 0
         while times < 1000:
+            job_pool_lock.acquire()
             if now_job_counter in job_pool:
                 self.write(job_pool[now_job_counter])
                 job_pool.pop(now_job_counter)
+                print(job_pool)
+                job_pool_lock.release()
                 return
+            job_pool_lock.release()
             yield tornado.gen.sleep(0.001)
             times += 1
         self.write("TIMEOUT")
@@ -85,6 +90,7 @@ class TcpConnection(object):
             return
         if len(self.name) == 0:
             name = data.split()[1]
+            global socket_pool
             if name not in socket_pool:
                 self.name = name
                 socket_pool[self.name] = self
@@ -99,7 +105,10 @@ class TcpConnection(object):
                 response = data[0]
                 jobid = int(data[1].split(':')[1])
                 global job_pool
+                global job_pool_lock
+                job_pool_lock.acquire()
                 job_pool[jobid] = response
+                job_pool_lock.release()
                 print(jobid, response)
         self.stream.read_until(b'\n', self.on_read_line)
 
