@@ -48,7 +48,6 @@ class ApiHandler(tornado.web.RequestHandler):
             if now_job_counter in job_pool:
                 self.write(job_pool[now_job_counter])
                 job_pool.pop(now_job_counter)
-                print(job_pool)
                 job_pool_lock.release()
                 return
             job_pool_lock.release()
@@ -94,9 +93,9 @@ class TcpConnection(object):
             if name not in socket_pool:
                 self.name = name
                 socket_pool[self.name] = self
-                self.send_message("Register Successed.")
+                self.send_message("Register Successed.\n")
             else:
-                self.send_message("Register Failed.")
+                self.send_message("Register Failed.\n")
                 self.stream.close()
                 return
         else:
@@ -126,10 +125,16 @@ class TcpServer(tornado.tcpserver.TCPServer):
     def handle_stream(self, stream, address):
         TcpConnection(stream, address)
 
+def tick():
+    global socket_pool
+    for x in socket_pool:
+        socket_pool[x].send_message("tick\n")
+
 
 if __name__ == "__main__":
     web_server = make_app()
     web_server.listen(config.web_port)
     client_server = TcpServer()
     client_server.listen(config.socket_port)
+    tornado.ioloop.PeriodicCallback(tick, 60000).start()
     tornado.ioloop.IOLoop.current().start()
