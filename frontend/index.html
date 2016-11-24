@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Fib-2584</title>
+
+        <link href="style/main.css" rel="stylesheet" type="text/css">
+        <link href="style/custom.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+        <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+        <!-- iPhone 5+ -->
+        <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)">
+        <!-- iPhone, retina -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+    </head>
+
+    <body>
+        <div class="sidebar">
+            <div class="sidebar-heading">
+                <h1 class="title">Solver</h1>
+            </div>
+            <a class="refresh-ai-button">
+                Refresh AI List
+            </a>
+            <ul class="ai-list solver">
+            </ul>
+        </div>
+        <div class="mid-container">
+            <div class="heading">
+                <h1 class="title">Fib-2584</h1>
+                <div class="scores-container">
+                    <div class="score-container">0</div>
+                </div>
+            </div>
+            <div class="client-registry" style="display: none">
+                <div class="client-inputs">
+                    <div class="registry-label">Solver</div>
+                    <hr>
+                    <label class="student-id-label">Student ID </label><input type="text" id="solver-student-id" name="solver-student-id">
+                    <label class="pass-phrase-label">Pass phrase </label><input type="text" id="solver-pass-phrase" name="solver-pass-phrase" value="12345">
+                </div>
+                <div class="client-inputs">
+                    <div class="registry-label">Evil</div>
+                    <hr>
+                    <label class="student-id-label">Student ID </label><input type="text" id="evil-student-id" name="evil-student-id">
+                    <label class="pass-phrase-label">Pass phrase </label><input type="text" id="evil-pass-phrase" name="evil-pass-phrase" value="12345">
+                </div>
+            </div>
+            <div class="above-game">
+                <p class="game-intro">Beat evil and reach the highest score!</p>
+                <a class="restart-button">Game Start</a>
+            </div>
+            <div class="replay-gamelog" style="display: none">
+                <hr>
+                <p class="game-intro">Paste game log here and replay it!</p>
+                <a class="replay-button">Replay</a>
+                <div class="replay-speed-div">
+                    <label>delay</label><br>
+                    <input id="replay-speed" type="number" min="0" max="2000" step="50" value="200">
+                </div>
+                <br>
+                <textarea id="game-log"></textarea>
+            </div>
+            <hr>
+            <div class="game-container">
+                <div class="game-message">
+                    <p></p>
+                    <div class="lower">
+                        <a id="download-log">Download log file</a>
+                        <a class="finished-button">Finished &amp; Switch</a>
+                    </div>
+                </div>
+
+                <div class="grid-container">
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                    <div class="grid-row">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                    </div>
+                </div>
+
+                <div class="tile-container">
+
+                </div>
+            </div>
+            <hr>
+            <p class="game-explanation">
+                <strong class="important">How to use this platform:</strong><br>
+                <strong>1.</strong> Use command [&gt;<strong>make client</strong>] to compile your ai program "<strong>ai_client</strong>".<br>
+                <strong>2.</strong> Run your ai program with student ID and pass phrase, e.g. [&gt;<strong>./ai_client 0256049 1234</strong>].<br>
+                <strong>3.</strong> Input student ID and pass phrase in this page.<br>
+                <strong>4.</strong> Start game!
+            </p>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-heading">
+                <h1 class="title">Evil</h1>
+            </div>
+            <a class="refresh-ai-button">
+                Refresh AI List
+            </a>
+            <ul class="ai-list solver">
+            </ul>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="js/bind_polyfill.js"></script>
+        <script src="js/classlist_polyfill.js"></script>
+        <script src="js/animframe_polyfill.js"></script>
+        <script src="js/keyboard_input_manager.js"></script>
+        <script src="js/html_actuator.js"></script>
+        <script src="js/grid.js"></script>
+        <script src="js/tile.js"></script>
+        <script src="js/local_storage_manager.js"></script>
+        <script src="js/game_manager.js"></script>
+        <script src="js/application.js"></script>
+        <script>
+            $(document).ready(function() {
+                function RefreshAI() {
+                    $.getJSON("/room/", function(list) {
+                        list = ["1234", "5677"];
+                        ["solver", "evil"].forEach(function(index, element) {
+                            console.log(element);
+                        })
+                        console.log(list);
+                    });
+                }
+                RefreshAI();
+            });
+
+        </script>
+    </body>
+
+</html>

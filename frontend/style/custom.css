@@ -1,0 +1,41 @@
+body {
+    display: flex
+}
+
+.mid-container {
+    max-width: 500px;
+}
+
+.sidebar {
+    flex: 1;
+    padding-left: 12px;
+    padding-right: 12px;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+}
+.sidebar-heading {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text: center;
+    color: #776e65;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.right {
+    text-align: right
+}
+
+.refresh-ai-button {
+  display: inline-block;
+  background: #8f7a66;
+  border-radius: 3px;
+  padding: 0 20px;
+  text-decoration: none;
+  color: #f9f6f2;
+  height: 40px;
+  line-height: 42px;
+  text-align: center;
+}
