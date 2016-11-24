@@ -39,3 +39,48 @@ body {
   line-height: 42px;
   text-align: center;
 }
+
+ul.ai-list{
+    padding: 0px
+}
+ul.ai-list>li {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    text-decoration: none;
+    width: 100%;
+    margin: 0px;
+    margin-top: 6px;
+    height: 48px;
+    background-color: #8f7a66;
+    padding: 6px;
+    font-size: 18px;
+    justify-content: center;
+    box-sizing: border-box;
+    color: #f9f6f2;
+}
+ul.ai-list>li:hover {
+    cursor: pointer
+}
+
+.show{
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.show>span{
+    display: flex;
+    width: 50px;
+    justify-content: center;
+}
+.show>div{
+    flex: 1;
+    background-color: #bbada0;
+    color: white;
+    padding: 6px;
+    font-size: 18px;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 48px;
+}
