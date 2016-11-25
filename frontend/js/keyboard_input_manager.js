@@ -21,18 +21,12 @@ KeyboardInputManager.prototype.emit = function (event, data) {
 
 KeyboardInputManager.prototype.listen = function () {
   this.bindButtonPress(".restart-button", this.restart);
-  this.bindButtonPress(".finished-button", this.finished);
   this.bindButtonPress(".replay-button", this.replay);
 };
 
 KeyboardInputManager.prototype.restart = function (event) {
   event.preventDefault();
   this.emit("restart");
-};
-
-KeyboardInputManager.prototype.finished = function (event) {
-  event.preventDefault();
-  this.emit("finished");
 };
 
 KeyboardInputManager.prototype.replay = function (event) {
