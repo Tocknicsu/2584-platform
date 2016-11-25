@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <title>Fib-2584</title>
-
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet" type="text/css">
         <link href="style/main.css" rel="stylesheet" type="text/css">
         <link href="style/custom.css" rel="stylesheet" type="text/css">
         <link rel="shortcut icon" href="favicon.ico">
@@ -31,7 +31,9 @@
         </div>
         <div class="mid-container">
             <div class="heading">
-                <h1 class="title">Fib-2584</h1>
+                <h1 class="title">
+                    Fib-2584
+                </h1>
                 <div class="scores-container">
                     <div class="score-container">0</div>
                 </div>
@@ -56,7 +58,9 @@
                 </div>
             </div>
             <div class="above-game">
-                <p class="game-intro">Beat evil and reach the highest score!</p>
+                <p class="game-intro">
+                    <a class="how-to button">How to use</a>
+                </p>
                 <a class="restart-button">Game Start</a>
             </div>
             <div class="replay-gamelog" style="display: none">
@@ -130,6 +134,7 @@
         </footer>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
         <script src="js/bind_polyfill.js"></script>
         <script src="js/classlist_polyfill.js"></script>
         <script src="js/animframe_polyfill.js"></script>
@@ -152,6 +157,18 @@
                         $(".show.evil").html(ai);
                     }
                 }
+
+                $(".how-to.button").click(function() {
+                    swal({
+                        title: "HOW TO USE THIS PLATFORM:<br>",
+                        text: '0. Modify main/client_main.cpp line 41 ip to "140.113.66.97".<br>' +
+                            '1. Use command [>make client] to compile your ai program "ai_client".<br>' +
+                            "2. Run your ai program with student ID and pass phrase, e.g. [>./ai_client 0256049 1234].<br>" +
+                            "3. Select AI in left and right sidebar.<br>" +
+                            "4. Start game!",
+                        html: true
+                    });
+                });
 
                 function RefreshAI() {
                     $.getJSON("/room/", function(list) {

@@ -105,3 +105,17 @@ footer{
     color: white;
     width: 100vw;
 }
+.button{
+    background-color: #8f7a66;
+    color: #f9f6f2;
+    height: 40px;
+    line-height: 42px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 0 12px;
+}
+
+.button:hover{
+    cursor: pointer;
+}
